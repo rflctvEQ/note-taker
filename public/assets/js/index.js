@@ -54,11 +54,13 @@ const renderActiveNote = () => {
   hide(saveNoteBtn);
 
   if (activeNote.id) {
+    // console.log("activeNote.id is true!")
     noteTitle.setAttribute('readonly', true);
     noteText.setAttribute('readonly', true);
     noteTitle.value = activeNote.title;
     noteText.value = activeNote.text;
   } else {
+    // console.log("it did not do the thing you wanted!")
     noteTitle.value = '';
     noteText.value = '';
   }
@@ -96,14 +98,18 @@ const handleNoteDelete = (e) => {
 // Sets the activeNote and displays it
 const handleNoteView = (e) => {
   e.preventDefault();
+  // console.log('handleNoteView');
   activeNote = JSON.parse(e.target.parentElement.getAttribute('data-note'));
   renderActiveNote();
 };
 
 // Sets the activeNote to and empty object and allows the user to enter a new note
 const handleNewNoteView = (e) => {
+  console.log('new note!')
   activeNote = {};
   renderActiveNote();
+  noteTitle.removeAttribute('readonly');
+  noteText.removeAttribute('readonly');
 };
 
 const handleRenderSaveBtn = () => {
@@ -155,6 +161,7 @@ const renderNoteList = async (notes) => {
     noteListItems.push(createLi('No saved Notes', false));
   }
 
+  // console.log(notes);
   jsonNotes.forEach((note) => {
     const li = createLi(note.title);
     li.dataset.note = JSON.stringify(note);
